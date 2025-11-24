@@ -1,228 +1,341 @@
-# MannMitra — Mental Wellness App
+# MannMitra — Mental Wellness Web App
 
-MannMitra is a full-stack web app focused on mental wellness: mood tracking, guided mindfulness exercises, journaling, small therapeutic games, and optional hand-gesture controls (for a camera-enabled experience). This single README consolidates project setup, features, technology stack, usage guides, troubleshooting notes, and future plans.
+A calm, accessible, full-stack mental wellness platform.
 
----
-
-**Contents**
-- Project overview
-- Features
-- Tech stack
-- Quick start (frontend & backend)
-- Camera & hand-tracking (usage + troubleshooting)
-- Backend API & database summary
-- Development notes & TODOs
-- Future roadmap
-- Appendix: original guides (merged)
+<p align="center">
+  <strong>Mood tracking • Guided breathing • PMR • Journaling • Daily affirmations • Mini-games • Hand-gesture controls</strong>
+</p>
+<p align="center">
+  Built with React + TypeScript + Node.js + SQLite
+</p>
 
 ---
 
-**Project Overview**
+## 📌 Table of Contents
 
-This repository contains a Vite + React + TypeScript frontend in `src/` and a lightweight Node/Express backend in `server/` that uses SQLite for persistence. The app provides:
-- Mood tracking and visualizations
-- Guided breathing exercises and PMR (Progressive Muscle Relaxation)
-- Daily affirmations (with share/download capability)
-- A small Snake game with optional hand-gesture controls
-- Chat and media pages for supportive resources
-
-**Intended audience:** users seeking simple, accessible mental wellness tools.
-
----
-
-**Features**
-
-- Breathing exercises with timers and ambient soundscapes (Rain, Forest, White Noise).
-- Progressive Muscle Relaxation (`PMR.tsx`) with guided steps and optional voice guidance.
-- Mood tracker with history and persistence.
-- Journal editor with persistent entries.
-- Daily Affirmations with image generation (share/download via Canvas/Web Share API).
-- Snake Game with keyboard and hand-gesture controls (MediaPipe / camera hooks).
-- Settings, language support (English + Hindi), and accessibility improvements.
-
-Files of note:
-- Frontend: `src/` (pages, components, hooks, lib)
-- Backend: `server/` (Express routes, SQLite DB in `server/db`)
-- Camera system: `src/lib/camera.ts`, `src/hooks/useCamera.ts`, `src/hooks/useHandTracking.ts`
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Quick Start](#quick-start)
+- [Backend API](#backend-api)
+- [Database Schema](#database-schema)
+- [Camera & Hand Tracking](#camera--hand-tracking)
+- [Development Notes](#development-notes)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-**Technology Stack**
+## Overview
 
-- Frontend: React + TypeScript, Vite, Tailwind CSS
-- Backend: Node.js, Express, SQLite (lightweight persistence)
-- Build & tooling: ESLint, PostCSS, Vite dev server
-- Optional libs: MediaPipe / hand-pose detection for gesture controls
+**MannMitra** is a full-stack mental wellness application offering calm, therapeutic micro-experiences including:
+
+- Mood tracking
+- Breathing & PMR guidance
+- Journaling
+- Daily affirmations
+- Mini Snake game
+- Optional hand-gesture control using MediaPipe
+
+It is designed to be lightweight, privacy-respecting and accessible.
 
 ---
 
-**Quick Start (Windows PowerShell)**
+## Features
 
-Prerequisites: Node.js (16+ recommended), npm
+### 🧘‍♂️ Guided Wellness Tools
+- Breathing exercises with customizable timers
+- Ambient soundscapes (Rain, Forest, White Noise)
+- Progressive Muscle Relaxation (PMR) with step-by-step guidance
+- Optional voice assistant (planned)
 
-1) Install dependencies (project root)
+### 📊 Mood & Journal Tracking
+- Mood history with charts
+- Persistent journal entries
+- Local + backend synced storage
 
-```powershell
+### 🌅 Daily Affirmations
+- Beautiful affirmation cards
+- Export as image
+- Share via Web Share API
+
+### 🎮 Mini Snake Game
+- Play with keyboard
+- OR optional hand-gesture control through camera
+- Uses MediaPipe hand-pose detection
+
+### ⚙️ Extras
+- Settings page with preferences
+- Language support: English + Hindi
+- Accessibility improvements
+
+---
+
+## Architecture
+
+```
+mannmitra/
+│
+├── src/                    # Frontend (React + TS)
+│   ├── pages/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   └── locales/
+│
+├── server/                 # Backend (Node + Express + SQLite)
+│   ├── routes/
+│   ├── db/
+│   └── middleware/
+│
+├── public/
+└── start-dev.ps1
+```
+
+- **Frontend → Backend communication** via REST API (JSON).
+- **Backend uses SQLite** for persistent data.
+
+---
+
+## Technology Stack
+
+### Frontend
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Zustand (optional)
+- MediaPipe (hand tracking)
+
+### Backend
+- Node.js
+- Express
+- SQLite (persistent DB)
+- JWT authentication
+- bcrypt password hashing
+
+### Tooling
+- ESLint
+- PostCSS
+- Vite dev server
+
+---
+
+## Quick Start
+
+### Prerequisites
+- Node.js 16+
+- npm
+
+### Install
+
+```bash
 cd 'C:\Users\Dell\Downloads\mannmitra_mental_wellness_app_0i3urx_dualiteproject'
 npm install
 npm install --prefix server
 ```
 
-2) Start dev servers (two terminals) or use the provided script
+### Run
 
-Option A — manual (two terminals):
-```powershell
-# Terminal 1: Backend
+**Option A — Manual (2 terminals)**
+
+_Backend_
+```bash
 cd server
 npm run dev
+```
 
-# Terminal 2: Frontend (project root)
+_Frontend_
+```bash
 cd ..
 npm run dev
 ```
 
-Option B — single script (PowerShell):
-```powershell
+**Option B — One-click script**
+```bash
 .\start-dev.ps1
 ```
 
-Open the frontend at `http://localhost:5173` and the backend runs on port `5000` (by default).
+- **Frontend:** [http://localhost:5173](http://localhost:5173)
+- **Backend:** [http://localhost:5000](http://localhost:5000)
 
 ---
 
-**Backend API & Database (summary)**
+## Backend API
 
-The backend (in `server/`) exposes authentication and user-data endpoints:
-- `POST /api/auth/signup` — create account
-- `POST /api/auth/login` — obtain JWT
-- `GET/POST /api/moods` — list/save moods
-- `GET/POST /api/journal` — list/save journal entries
+### Authentication
 
-Data persisted in SQLite tables: `users`, `moods`, `journal_entries`.
-
-Environment variables (server/.env):
-```
-PORT=5000
-JWT_SECRET=mannmitra-secret-key-change-in-production
-NODE_ENV=development
+**Signup**
+```http
+POST /api/auth/signup
+{
+  "email": "user@example.com",
+  "password": "123456"
+}
 ```
 
-Frontend env (in `.env.local`):
-```
-VITE_API_URL=http://localhost:5000/api
-```
-
----
-
-**Camera system & Hand Tracking**
-
-The app includes a reusable camera system and `useCamera` hook (recommended) that handles permission checks, constraints, error recovery, and cleanup. The Snake game and hand-tracking features use `useHandTracking` which relies on the camera hook.
-
-Key usage patterns:
-- Use `useCamera({ width, height, frameRate })` in components and attach `videoRef` to a `<video>` element.
-- Provide graceful fallback (keyboard) when camera or detection is unavailable.
-
-Troubleshooting tips:
-- Ensure camera permission is granted and no other app is using the camera.
-- Use `localhost` or HTTPS; camera access is blocked on plain HTTP.
-- Verify WebGL support in the browser and network access to any CDN used by models.
-
-For detailed guidance, see the Appendix sections below (Camera System Guide, Hand Detection Troubleshooting, Hand Tracking Fixes).
-
----
-
-**Development notes**
-
-- Linting: `npm run lint`
-- Build: `npm run build` (frontend)
-- Preview production build: `npm run preview`
-- Backend dev: `npm run dev` inside `server/`
-
-Localization: `locales/en.json` and `locales/hi.json` store displayed strings — add keys for new UI text.
-
-Persistence & sync: localStorage is used for some preferences; main user data is persisted via backend SQLite.
-
----
-
-**Project TODOs & Future Roadmap**
-
-Planned improvements (high level):
-- Ambient soundscapes (integrated with breathing exercises) — UI + fade/duck when voice guidance plays
-- PMR page with guided steps & optional TTS/recorded audio
-- Share image export for Daily Affirmation using Canvas and Web Share API
-- Dynamic contextual summaries (privacy-conscious; may be local or server-based)
-- Focus tool widget, streaks & light gamification (opt-in)
-
-Privacy & ethics:
-- Be explicit about any data sent to external services (LLMs, analytics); require opt-in for cloud summarization.
-- Avoid addictive gamification; keep rewards small and meaningful.
-
----
-
-**How you can help / Contributing**
-
-- Fork and open PRs for small issues.
-- Run `npm run lint` and `npm run build` before submitting PRs.
-- Add i18n strings to `locales/` when adding features.
-
----
-
-**Appendix — Merged Original Guides**
-
-Below are the original markdown documents that were consolidated into this README. They are included for reference and were merged into the sections above.
-
--- `SETUP_BACKEND.md` (Backend setup & persistent DB):
-
-```
-Your app now has a full-stack backend with a SQLite database that persists:
-- User credentials (bcrypt-hashed)
-- Moods & mood tracking history
-- Journal entries
-
-Quick start and API examples are available in the original file. Refer to the `server/` folder for routes and DB schema details.
+**Login**
+```http
+POST /api/auth/login
+Returns:
+{
+  "token": "jwt-token-here"
+}
 ```
 
--- `CAMERA_SYSTEM_GUIDE.md` (Camera system & usage):
+### Moods
 
-```
-The camera system provides a robust hook `useCamera` and `cameraManager` helpers. Use `useCamera` in components to get `videoRef`, `isReady`, `error`, and control functions (`stop`, `restart`). The camera manager exposes `initializeCamera` and helper functions like `testCamera` and `checkCameraPermissions`.
-```
-
--- `HAND_DETECTION_TROUBLESHOOTING.md` (Hand detection troubleshooting):
-
-```
-Contains step-by-step debugging: check console errors, grant camera permissions, verify WebGL, test camera with system app, check HTTPS/localhost, try keyboard fallback, and sample console test snippets.
+**Get moods**
+```http
+GET /api/moods
 ```
 
--- `HAND_TRACKING_FIXES.md` (Hand gesture fixes):
-
+**Add mood**
+```http
+POST /api/moods
+{
+  "mood": "happy",
+  "timestamp": 1698452781
+}
 ```
-Documented fixes include using array indices for landmark access (reliable), raising movement thresholds, checking detection confidence, using angle-based direction detection with stability checks, and graceful error recovery.
+
+### Journal
+
+**Get entries**
+```http
+GET /api/journal
 ```
 
--- `TODO.md` (Selected items merged above):
-
-```
-- Integrate Ambient Soundscapes
-- Add PMR page and link
-- Add share functionality for DailyAffirmation
-- Implement contextual summaries, focus widget, and gamification
+**Add entry**
+```http
+POST /api/journal
+{
+  "title": "A calm day",
+  "content": "Today I felt peaceful..."
+}
 ```
 
 ---
 
-**Credits & license**
-- See repository root for license (if present). If none, tell me which license you want and I can add it.
+## Database Schema
 
-Contact / Maintainers: check `package.json` and `server/package.json` for author or reach out to the repository owner.
+**users**
+| id | email          | password | created_at |
 
-Thank you for using MannMitra — let me know if you'd like a different structure or to keep raw docs in an `docs/` folder instead of deleting them.
-# Project Setup
-    
-    To run this project, follow these steps:
-    
-    1. Extract the zip file.
-    2. Run `npm install` to install dependencies.
-    3. Run `npm run dev` to start the development server.
-    
-    This project was generated through Alpha. For more information, visit [dualite.dev](https://dualite.dev).
+**moods**
+| id | user_id        | mood     | timestamp  |
+
+**journal_entries**
+| id | user_id        | title    | content    | created_at |
+
+SQLite database location:  
+`server/db/mannmitra.db`
+
+---
+
+## Camera & Hand Tracking
+
+_MannMitra includes a robust camera system with:_
+
+**Hooks**
+- `useCamera`
+- `useHandTracking`
+
+**Features**
+- Auto permission checks
+- Device availability handling
+- Error recovery (`restart()`, `stop()`)
+- FPS & dimension constraints
+- Landmarks processed for Snake game controls
+
+**Common Issues**
+
+| Issue                 | Fix                              |
+|-----------------------|----------------------------------|
+| Camera black          | Another app is using camera      |
+| No hand detection     | Ensure WebGL is enabled          |
+| Permission denied     | Use HTTPS or localhost           |
+| Too sensitive gestures| Thresholds customizable in `useHandTracking.ts` |
+
+---
+
+## Development Notes
+
+### Scripts
+
+| Command            | Description             |
+|--------------------|------------------------|
+| npm run dev        | Start frontend         |
+| npm run build      | Build frontend         |
+| npm run preview    | Preview production build|
+| npm run lint       | Lint code              |
+| npm run dev (server)| Start backend         |
+
+### Localization
+
+Located in:
+- `src/locales/en.json`
+- `src/locales/hi.json`
+
+---
+
+## Troubleshooting
+
+#### Camera not working
+- Check permissions
+- Stop other apps (Meet, Zoom)
+- Use HTTPS or localhost
+- Check browser console for:
+  - WebGL errors
+  - Failed to load model
+
+#### Backend not running
+- Port conflict → change PORT in `.env`
+- Missing SQLite file → backend auto-creates on first run
+
+#### CORS issues
+- Ensure this exists in server:
+  ```js
+  app.use(cors());
+  ```
+
+---
+
+## Roadmap
+
+### Upcoming Features
+- Ambient soundscapes integration
+- PMR audio narration
+- Advanced affirmation card designs
+- Share → Instagram/Facebook/Reels
+- Streaks & mindful gamification
+- Focus Tool / Timer widget
+- Optional cloud summaries (opt-in only)
+
+### Long-term
+- AI-generated mood insights
+- Offline-first PWA
+- WearOS/Android app version
+
+---
+
+## Contributing
+
+1. Fork repo
+2. Create new branch
+3. Run:
+   ```bash
+   npm run lint
+   npm run build
+   ```
+4. Submit Pull Request
+
+_Add translations to both `en.json` and `hi.json` for any new UI text._
+
+---
+
+## License
+
+[MIT](LICENSE)
