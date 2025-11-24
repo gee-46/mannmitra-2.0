@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Pacifico&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default Ocean Theme */
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 30% 15% / 0.5;
+    --primary: 190 95% 50%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 217 33% 64%;
+    --secondary-foreground: 210 40% 98%;
+    --accent: 290 85% 60%;
+    --accent-foreground: 210 40% 98%;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .theme-light {
+    --background: 210 40% 98%;
+    /* White/Off-white */
+    --foreground: 222 47% 11%;
+    /* Dark Blue */
+    --card: 0 0% 100% / 0.8;
+    --primary: 217 91% 60%;
+    /* Bright Blue */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 16% 47%;
+    --secondary-foreground: 222 47% 11%;
+    --accent: 199 89% 48%;
+    /* Cyan/Blue Accent */
+    --accent-foreground: 210 40% 98%;
+  }
+
+  .theme-ocean {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 30% 15% / 0.5;
+    --primary: 190 95% 50%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 217 33% 64%;
+    --secondary-foreground: 210 40% 98%;
+    --accent: 290 85% 60%;
+    --accent-foreground: 210 40% 98%;
+  }
+
+  .theme-nature {
+    --background: 150 50% 5%;
+    --foreground: 140 30% 95%;
+    --card: 150 30% 15% / 0.5;
+    --primary: 142 70% 50%;
+    /* Green */
+    --primary-foreground: 150 50% 5%;
+    --secondary: 140 20% 70%;
+    --secondary-foreground: 140 30% 95%;
+    --accent: 35 90% 60%;
+    /* Earthy Orange */
+    --accent-foreground: 140 30% 95%;
+  }
+
+  .theme-sunset {
+    --background: 20 50% 5%;
+    --foreground: 30 30% 95%;
+    --card: 20 30% 15% / 0.5;
+    --primary: 15 90% 60%;
+    /* Orange/Red */
+    --primary-foreground: 20 50% 5%;
+    --secondary: 30 20% 70%;
+    --secondary-foreground: 30 30% 95%;
+    --accent: 280 70% 60%;
+    /* Purple */
+    --accent-foreground: 30 30% 95%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Removed default gradient to allow for slideshow */
+  }
+}
+
+/* Custom styles for react-calendar */
+.react-calendar {
+  @apply w-full border-none p-2 bg-transparent;
+}
+
+.react-calendar__navigation button {
+  @apply text-primary font-semibold hover:text-primary/80;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  @apply text-secondary font-normal text-sm;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  @apply no-underline;
+}
+
+.react-calendar__tile {
+  @apply h-14 rounded-lg flex flex-col items-center justify-start pt-2 text-foreground/80 transition-colors;
+  background-color: transparent;
+}
+
+.react-calendar__tile--now {
+  @apply bg-primary/10 font-bold text-primary;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  @apply bg-primary/20;
+}
+
+.react-calendar__tile--active {
+  @apply !bg-primary text-primary-foreground;
+}
+
+.mood-emoji {
+  @apply text-2xl mt-1;
+}

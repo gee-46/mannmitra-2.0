@@ -1,0 +1,95 @@
+{
+  "greeting": "नमस्ते, {{name}}!",
+  "how_are_you_feeling": "आज आप कैसा महसूस कर रहे हैं?",
+  "moods": {
+    "happy": "खुश",
+    "calm": "शांत",
+    "anxious": "चिंतित",
+    "sad": "उदास"
+  },
+  "wellness_streak": "वेलनेस स्ट्रीक",
+  "days": "दिन",
+  "mood_analysis": "मनोदशा विश्लेषण (पिछले 7 दिन)",
+  "recommended_tools": "अनुशंसित उपकरण",
+  "breathing_exercise": "साँस लेने का व्यायाम",
+  "daily_affirmation": "दैनिक प्रतिज्ञान",
+  "nav": {
+    "dashboard": "होम",
+    "mood_tracker": "मनोदशा",
+    "chat": "बातचीत",
+    "journal": "जर्नल",
+    "media": "मीडिया",
+    "mindfulness": "उपकरण"
+  },
+  "mood_tracker_page": {
+    "title": "मनोदशा कैलेंडर",
+    "log_your_mood": "अपनी मनोदशा दर्ज करें",
+    "mood_trends": "मासिक मनोदशा रुझान",
+    "average_mood": "मासिक औसत मनोदशा"
+     ,"log_note": "एक टिप्पणी जोड़ें (वैकल्पिक)",
+     "sleep_hours": "नींद (घंटे)",
+     "exercise_minutes": "व्यायाम (मिन)",
+     "social_minutes": "सामाजिक (मिन)",
+     "correlation": "संबंध",
+     "correlation_with": "संबंध कारक",
+     "value": "मान"
+  },
+  "chat_page": {
+    "placeholder": "अपना संदेश टाइप करें...",
+    "crisis_title": "मदद मांगना ठीक है",
+    "talk_to_volunteer": "एक स्वयंसेवक से बात करें",
+    "helpline_numbers": "हेल्पलाइन नंबर"
+  },
+  "mindfulness_page": {
+    "title": "माइंडफुलनेस उपकरण",
+    "new_affirmation": "नया प्रतिज्ञान",
+    "snake_game": "माइंडफुल स्नेक",
+    "snake_game_desc": "ध्यान भटकाने का एक उपकरण"
+  },
+  "breathing_exercise_page": {
+    "breathe_in": "साँस अंदर लें",
+    "hold": "रोकें",
+    "breathe_out": "साँस बाहर छोड़ें"
+  },
+  "login_page": {
+    "title": "मनमित्र में आपका स्वागत है",
+    "subtitle": "आपका व्यक्तिगत कल्याण साथी।",
+    "username": "उपयोगकर्ता नाम",
+    "password": "पासवर्ड",
+    "login": "लॉग इन करें",
+    "signup": "साइन अप करें",
+    "create_account": "अपना खाता बनाएं",
+    "toggle_to_login": "पहले से ही एक खाता है? लॉग इन करें",
+    "toggle_to_signup": "खाता नहीं है? साइन अप करें",
+    "user_exists": "यह उपयोगकर्ता नाम पहले से मौजूद है। कृपया दूसरा चुनें।",
+    "login_failed": "अमान्य उपयोगकर्ता नाम या पासवर्ड।"
+  },
+  "media_page": {
+    "title": "मन को सुकून देने वाला मीडिया",
+    "videos": "शांत करने वाले वीडियो",
+    "podcasts": "माइंडफुल पॉडकास्ट"
+  },
+  "journal_page": {
+    "title": "मेरी जर्नल",
+    "new_entry": "नई प्रविष्टि",
+    "empty_state": "आपकी जर्नल खाली है। एक नई प्रविष्टि लिखकर शुरुआत करें।",
+    "editor_title_new": "आपके मन में क्या है?",
+    "editor_title_edit": "प्रविष्टि संपादित करें",
+    "placeholder": "अपने विचार यहां लिखना शुरू करें...",
+    "save": "प्रविष्टि सहेजें",
+    "start_listening": "सुनना शुरू करें",
+    "stop_listening": "सुनना बंद करें",
+    "voice_not_supported": "यह ब्राउज़र वॉइस इनपुट का समर्थन नहीं करता है।"
+  },
+  "snake_game_page": {
+    "title": "माइंडफुल स्नेक",
+    "score": "स्कोर",
+    "game_over": "खेल खत्म",
+    "play_again": "फिर से खेलें",
+    "loading_model": "कैमरा और मॉडल शुरू हो रहे हैं...",
+    "instructions_title": "कैसे खेलें",
+    "instructions_cam": "सांप को निर्देशित करने के लिए अपनी तर्जनी उंगली का प्रयोग करें।",
+    "instructions_keys": "या अपने कीबोर्ड पर एरो कीज़ का उपयोग करें।",
+    "start_game": "खेल शुरू करें"
+  }
+}
