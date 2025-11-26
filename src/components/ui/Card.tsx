@@ -18,7 +18,7 @@ const Card = ({ className, children, ...props }: CardProps) => (
     {...props}
   >
     {children}
-  </motion.div>
+  </motion.div>    
 );
 
 export default Card;

@@ -36,26 +36,26 @@ const JournalEditor: React.FC<JournalEditorProps> = ({ entry, onSave, onClose })
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, y: 50 }}
+        initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.9, y: 50 }}
+        exit={{ scale: 0.9, y: 20 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="bg-card border border-white/10 rounded-2xl w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10"
+        className="bg-card border border-white/10 rounded-2xl w-[95vw] h-[95vh] flex flex-col shadow-2xl shadow-primary/10 m-auto"
         onClick={e => e.stopPropagation()}
       >
-        <header className="flex items-center justify-between p-4 border-b border-white/10">
-          <h2 className="text-xl font-bold text-foreground">
+        <header className="flex items-center justify-between p-5 border-b border-white/10 flex-shrink-0">
+          <h2 className="text-2xl font-bold text-foreground">
             {entry ? t('journal_page.editor_title_edit') : t('journal_page.editor_title_new')}
           </h2>
-          <button onClick={onClose} className="text-secondary hover:text-primary transition-colors">
-            <X size={24} />
+          <button onClick={onClose} className="text-secondary hover:text-primary transition-colors p-2 hover:bg-white/5 rounded-lg">
+            <X size={28} />
           </button>
         </header>
-        <div className="flex-grow p-4 relative">
+        <div className="flex-grow p-6 overflow-y-auto">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -63,28 +63,28 @@ const JournalEditor: React.FC<JournalEditorProps> = ({ entry, onSave, onClose })
             className="w-full h-full bg-transparent text-foreground placeholder:text-secondary resize-none focus:outline-none text-lg leading-relaxed"
           />
         </div>
-        <footer className="flex items-center justify-between p-4 border-t border-white/10">
-          <div>
+        <footer className="flex items-center justify-between p-5 border-t border-white/10 flex-shrink-0 gap-4">
+          <div className="flex-1">
             {hasRecognitionSupport ? (
               <button
                 onClick={isListening ? stopListening : startListening}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 ${isListening ? 'bg-red-500/20 text-red-400' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
+                className={`flex items-center space-x-2 px-5 py-3 rounded-full transition-all duration-300 ${isListening ? 'bg-red-500/20 text-red-400' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
               >
-                {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+                {isListening ? <MicOff size={22} /> : <Mic size={22} />}
                 <span className="text-sm font-semibold">{isListening ? t('journal_page.stop_listening') : t('journal_page.start_listening')}</span>
                 {isListening && <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>}
               </button>
             ) : (
-              <p className="text-xs text-secondary">{t('journal_page.voice_not_supported')}</p>
+              <p className="text-sm text-secondary">{t('journal_page.voice_not_supported')}</p>
             )}
-            {error && <p className="text-xs text-red-400 mt-1">{error}</p>}
+            {error && <p className="text-xs text-red-400 mt-2">{error}</p>}
           </div>
           <button
             onClick={handleSave}
-            className="flex items-center space-x-2 bg-primary text-primary-foreground font-bold py-2 px-6 rounded-full hover:bg-primary/90 transition-colors transform hover:scale-105"
+            className="flex items-center space-x-2 bg-primary text-primary-foreground font-bold py-3 px-8 rounded-full hover:bg-primary/90 transition-colors transform hover:scale-105 shadow-lg"
           >
-            <Save size={20} />
-            <span>{t('journal_page.save')}</span>
+            <Save size={22} />
+            <span className="text-base">{t('journal_page.save')}</span>
           </button>
         </footer>
       </motion.div>
